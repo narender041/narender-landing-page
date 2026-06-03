@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>SDM Labs - Practice Landing Page</title>
+
+  <!-- ========== TRACKING CODES GO HERE ========== -->
+
+  <!-- Google Tag Manager (paste GTM head snippet below) -->
+  <!-- <script>...</script> -->
+
+  <!-- Meta Pixel Base Code (paste below) -->
+  <!-- <script>...</script> -->
+
+  <!-- Google Ads gtag.js (paste below) -->
+  <!-- <script>...</script> -->
+
+  <!-- Microsoft Clarity (paste below) -->
+  <!-- <script>...</script> -->
+
+  <!-- ========== END TRACKING CODES ========== -->
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 18px;
+      opacity: 0.85;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .form-section {
+      max-width: 420px;
+      margin: -40px auto 40px;
+      background: white;
+      padding: 32px 28px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    .form-section h2 {
+      font-size: 20px;
+      margin-bottom: 6px;
+      color: #1a1a2e;
+    }
+    .form-section .subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #444;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #0f3460;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #e94560;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .submit-btn:hover {
+      background: #d63851;
+    }
+    .trust-points {
+      max-width: 420px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    .trust-points h3 {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .trust-item:last-child { border-bottom: none; }
+    .trust-icon {
+      width: 36px;
+      height: 36px;
+      background: #e8f4f8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .trust-item p {
+      font-size: 14px;
+      color: #555;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #999;
+    }
+    .footer a { color: #0f3460; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Google Tag Manager (noscript) - paste GTM body snippet below -->
+  <!-- <noscript>...</noscript> -->
+
+  <div class="hero">
+    <div class="badge">SDM LABS — PRACTICE PAGE</div>
+    <h1>Learn Performance Marketing</h1>
+    <p>Master Google Ads, Meta Ads, SEO & Analytics with hands-on projects</p>
+  </div>
+
+  <div class="form-section">
+    <h2>Get a Free Demo Class</h2>
+    <p class="subtitle">Fill in your details and we'll reach out within 24 hours</p>
+
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" placeholder="Enter your name" id="name">
+    </div>
+
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <input type="tel" placeholder="Enter your mobile number" id="phone">
+    </div>
+
+    <div class="form-group">
+      <label>Interested In</label>
+      <select id="course">
+        <option value="">Select a course</option>
+        <option value="google-ads">Google Ads</option>
+        <option value="meta-ads">Meta Ads</option>
+        <option value="seo">SEO</option>
+        <option value="full-course">Full Performance Marketing</option>
+      </select>
+    </div>
+
+    <button class="submit-btn" onclick="handleSubmit()">Book Free Demo</button>
+  </div>
+
+  <div class="trust-points">
+    <h3>Why Choose SDM Classes?</h3>
+    <div class="trust-item">
+      <div class="trust-icon">🎯</div>
+      <p><strong>Live Online Classes</strong> — Real-time interaction, not recorded videos</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💼</div>
+      <p><strong>Real Client Projects</strong> — Work on actual campaigns during training</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🌐</div>
+      <p><strong>Telugu & English</strong> — Learn in the language you're comfortable with</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">📊</div>
+      <p><strong>Placement Support</strong> — Resume building, interview prep & job assistance</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Built with ❤️ at <a href="https://sdmclasses.com" target="_blank">SDM Classes</a> | Practice Landing Page</p>
+  </div>
+
+  <script>
+    function handleSubmit() {
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const course = document.getElementById('course').value;
+
+      if (!name || !phone) {
+        alert('Please fill in your name and mobile number.');
+        return;
+      }
+
+      // ========== CONVERSION TRACKING EVENTS GO HERE ==========
+
+      // Google Ads Conversion (uncomment and add your conversion ID)
+      // gtag('event', 'conversion', {'send_to': 'AW-XXXXXXXXX/XXXXXXXXXXXX'});
+
+      // Meta Pixel Lead Event (uncomment when pixel is installed)
+      // fbq('track', 'Lead');
+
+      // ========== END CONVERSION TRACKING ==========
+
+      alert('Thank you ' + name + '! We will contact you soon.');
+    }
+  </script>
+
+</body>
+</html>
