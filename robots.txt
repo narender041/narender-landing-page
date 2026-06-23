@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://narendar.sdmlabs.in/sitemap.xml
