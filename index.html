@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Fruit Bowl | Stock Management</title>
+<link rel="icon" type="image/jpeg" href="assets/urban-fruit-bowl-logo.jpg">
+<link rel="apple-touch-icon" href="assets/urban-fruit-bowl-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="mobile-header"><button class="icon-btn" id="mobileMenuBtn">☰</button><div><b>URBAN FRUIT BOWL</b><small>Stock Management</small></div></header>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+<div class="brand-section">
+<div class="brand-logo-wrap">
+<img src="assets/urban-fruit-bowl-logo.jpg" alt="Urban Fruit Bowl Logo" class="brand-logo">
+</div></div>
+<nav class="sidebar-nav">
+<button class="nav-link active" data-page="dashboard">▦ <span>Dashboard</span></button>
+<button class="nav-link" data-page="stock-in">↓ <span>Stock In</span></button>
+<button class="nav-link" data-page="stock-out">↑ <span>Stock Out</span></button>
+<button class="nav-link" data-page="items">◈ <span>Items / Master</span></button>
+</nav>
+<div class="sidebar-footer"><button class="export-btn" id="exportReportBtn">⇩ Export Report</button><div class="local-storage-note"><i></i>Data saved locally</div></div>
+</aside>
+<main class="main-content">
+
+<section class="page active-page" id="dashboard">
+<div class="page-header"><div><p class="eyebrow">OVERVIEW</p><h2>Stock Dashboard</h2><p class="page-description">Monitor inventory, stock value and today's movements.</p></div><div class="header-date" id="todayDisplay"></div></div>
+<div class="metrics-grid">
+<div class="metric-card"><div class="metric-icon red">◈</div><div><p>Total Stock Items</p><h3 id="totalStockItems">0</h3><span>Active inventory items</span></div></div>
+<div class="metric-card"><div class="metric-icon green">↓</div><div><p>Today's Stock In</p><h3 id="todayStockInValue">₹0.00</h3><span>Purchase value today</span></div></div>
+<div class="metric-card"><div class="metric-icon orange">↑</div><div><p>Today's Stock Out</p><h3 id="todayStockOutValue">₹0.00</h3><span>Usage & wastage today</span></div></div>
+<div class="metric-card"><div class="metric-icon burgundy">₹</div><div><p>Current Stock Value</p><h3 id="currentStockValue">₹0.00</h3><span>Total inventory value</span></div></div>
+</div>
+<div class="content-card"><div class="card-header"><div><h3>Current Stock</h3><p>Real-time inventory based on stock movements</p></div><div class="table-tools"><div class="search-box">⌕<input id="stockSearch" placeholder="Search items..."></div><select id="stockCategoryFilter"><option value="">All Categories</option><option>Fruits</option><option>Vegetables</option><option>Nuts</option><option>Packaging</option><option>Juice / Beverage</option><option>Miscellaneous</option></select></div></div>
+<div class="table-wrapper"><table><thead><tr><th>Item Name</th><th>Category</th><th>Unit</th><th>Available Quantity</th><th>Average Rate</th><th>Stock Value</th><th>Status</th></tr></thead><tbody id="currentStockTable"></tbody></table></div></div>
+</section>
+
+<section class="page" id="stock-in">
+<div class="page-header"><div><p class="eyebrow">INVENTORY</p><h2>Stock In</h2><p class="page-description">Record purchases and incoming inventory.</p></div></div>
+<div class="content-card"><div class="card-header"><div><h3>Add Stock In</h3><p>Enter purchase and supplier details</p></div></div>
+<form id="stockInForm"><div class="form-grid">
+<div class="form-group"><label>Date *</label><input type="date" id="stockInDate" required></div>
+<div class="form-group"><label>Item *</label><select id="stockInItem" required><option value="">Select Item</option></select></div>
+<div class="form-group"><label>Quantity *</label><input type="number" id="stockInQuantity" min="0.001" step="0.001" required></div>
+<div class="form-group"><label>Unit</label><input id="stockInUnit" readonly></div>
+<div class="form-group"><label>Rate Per Unit *</label><input type="number" id="stockInRate" min="0" step="0.01" required></div>
+<div class="form-group"><label>Total Amount</label><input id="stockInTotal" readonly></div>
+<div class="form-group"><label>Supplier</label><input id="stockInSupplier"></div>
+<div class="form-group"><label>Invoice / Reference Number</label><input id="stockInReference"></div>
+<div class="form-group full-width"><label>Notes</label><textarea id="stockInNotes"></textarea></div>
+</div><div class="form-actions"><button type="reset" class="btn btn-secondary">Clear</button><button class="btn btn-primary">+ Save Stock In</button></div></form></div>
+<div class="content-card"><div class="card-header"><div><h3>Stock In History</h3><p>Recent purchase transactions</p></div></div><div class="table-wrapper"><table><thead><tr><th>Date</th><th>Item</th><th>Quantity</th><th>Unit</th><th>Rate</th><th>Total Amount</th><th>Supplier</th><th>Reference</th><th>Action</th></tr></thead><tbody id="stockInHistory"></tbody></table></div></div>
+</section>
+
+<section class="page" id="stock-out">
+<div class="page-header"><div><p class="eyebrow">INVENTORY</p><h2>Stock Out</h2><p class="page-description">Record kitchen usage, wastage and damaged stock.</p></div></div>
+<div class="content-card"><div class="card-header"><div><h3>Remove Stock</h3><p>Stock out uses the current weighted average rate</p></div></div><div class="stock-available-box" id="availableStockInfo">Select an item to view available stock.</div>
+<form id="stockOutForm"><div class="form-grid">
+<div class="form-group"><label>Date *</label><input type="date" id="stockOutDate" required></div>
+<div class="form-group"><label>Item *</label><select id="stockOutItem" required><option value="">Select Item</option></select></div>
+<div class="form-group"><label>Quantity *</label><input type="number" id="stockOutQuantity" min="0.001" step="0.001" required></div>
+<div class="form-group"><label>Unit</label><input id="stockOutUnit" readonly></div>
+<div class="form-group"><label>Rate</label><input id="stockOutRate" readonly></div>
+<div class="form-group"><label>Total Stock Out Value</label><input id="stockOutTotal" readonly></div>
+<div class="form-group"><label>Reason *</label><select id="stockOutReason" required><option value="">Select Reason</option><option>Kitchen Usage</option><option>Wastage</option><option>Damaged</option><option>Other</option></select></div>
+<div class="form-group"><label>Reference</label><input id="stockOutReference"></div>
+<div class="form-group full-width"><label>Notes</label><textarea id="stockOutNotes"></textarea></div>
+</div><div class="form-actions"><button type="reset" class="btn btn-secondary">Clear</button><button class="btn btn-danger">− Save Stock Out</button></div></form></div>
+<div class="content-card"><div class="card-header"><div><h3>Stock Out History</h3><p>Kitchen usage, wastage and damaged stock</p></div></div><div class="table-wrapper"><table><thead><tr><th>Date</th><th>Item</th><th>Quantity</th><th>Unit</th><th>Rate</th><th>Stock Out Value</th><th>Reason</th><th>Reference</th><th>Action</th></tr></thead><tbody id="stockOutHistory"></tbody></table></div></div>
+</section>
+
+<section class="page" id="items">
+<div class="page-header"><div><p class="eyebrow">MASTER DATA</p><h2>Items / Master Items</h2><p class="page-description">Manage all products and inventory items.</p></div></div>
+<div class="content-card"><div class="card-header"><div><h3>Add New Item</h3><p>Create items before recording stock movements</p></div></div>
+<form id="itemForm"><div class="form-grid">
+<div class="form-group"><label>Item Name *</label><input id="itemName" required></div>
+<div class="form-group"><label>Category *</label><select id="itemCategory" required><option value="">Select Category</option><option>Fruits</option><option>Vegetables</option><option>Nuts</option><option>Packaging</option><option>Juice / Beverage</option><option>Miscellaneous</option></select></div>
+<div class="form-group"><label>Unit *</label><select id="itemUnit" required><option value="">Select Unit</option><option>KG</option><option>GRAM</option><option>PIECE</option><option>BOX</option><option>BOTTLE</option><option>PACKET</option></select></div>
+<div class="form-group"><label>Minimum Stock Level *</label><input type="number" id="itemMinimumStock" min="0" step="0.001" required></div>
+</div><div class="form-actions"><button type="reset" class="btn btn-secondary">Clear</button><button class="btn btn-primary">+ Add Item</button></div></form></div>
+<div class="content-card"><div class="card-header"><div><h3>Master Items</h3><p>All registered inventory items</p></div><div class="search-box">⌕<input id="itemSearch" placeholder="Search items..."></div></div><div class="table-wrapper"><table><thead><tr><th>Item Name</th><th>Category</th><th>Unit</th><th>Available Stock</th><th>Minimum Stock</th><th>Status</th><th>Action</th></tr></thead><tbody id="itemsTable"></tbody></table></div></div>
+</section>
+</main></div>
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-overlay" id="confirmModal"><div class="modal"><h3 id="confirmTitle">Confirm Action</h3><p id="confirmMessage"></p><div class="modal-actions"><button class="btn btn-secondary" id="confirmCancel">Cancel</button><button class="btn btn-danger" id="confirmProceed">Confirm</button></div></div></div>
+<script src="app.js"></script></body></html>
