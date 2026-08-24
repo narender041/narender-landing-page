@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>Master Expense Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-icon">₹</div><div><strong>Master Expense</strong><span>UFB + Western Mylands</span></div></div>
+      <nav>
+        <button class="nav active" data-view="dashboard">⌂ <span>Dashboard</span></button>
+        <button class="nav" data-view="expenses">▤ <span>All Expenses</span></button>
+        <button class="nav" data-view="reports">▥ <span>Reports</span></button>
+        <button class="nav" data-view="settings">⚙ <span>Settings</span></button>
+      </nav>
+      <div class="side-bottom"><button id="exportBtn" class="outline">⇩ Export Backup</button><label class="outline import-label">⇧ Import Backup<input type="file" id="importFile" accept=".json" hidden></label><button id="resetBtn" class="danger-link">Reset Demo Data</button></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <div><h1 id="pageTitle">Dashboard</h1><p id="todayText"></p></div>
+        <div class="top-actions"><select id="globalCompany"><option value="All">All Companies</option><option>Urban Fruit Bowl</option><option>Western Mylands</option></select><button id="addExpenseBtn" class="primary">+ Add Expense</button></div>
+      </header>
+
+      <section id="dashboard" class="view active">
+        <div class="filter-row">
+          <div class="quick-filters" id="quickFilters">
+            <button data-range="all" class="chip active">All Time</button><button data-range="today" class="chip">Today</button><button data-range="week" class="chip">This Week</button><button data-range="month" class="chip">This Month</button><button data-range="lastMonth" class="chip">Last Month</button>
+          </div>
+          <div class="date-filter"><input type="date" id="fromDate"><span>to</span><input type="date" id="toDate"><button id="applyDates" class="secondary">Apply</button></div>
+        </div>
+        <div class="cards">
+          <div class="card accent"><span>Total Expenses</span><strong id="totalExpense">₹0</strong><small id="totalCount">0 transactions</small></div>
+          <div class="card"><span>Urban Fruit Bowl</span><strong id="ufbTotal">₹0</strong><small id="ufbCount">0 expenses</small></div>
+          <div class="card"><span>Western Mylands</span><strong id="wmTotal">₹0</strong><small id="wmCount">0 expenses</small></div>
+          <div class="card"><span>Pending Approval</span><strong id="pendingTotal">₹0</strong><small id="pendingCount">0 pending</small></div>
+        </div>
+        <div class="dashboard-grid">
+          <div class="panel"><div class="panel-head"><h3>Monthly Expense Trend</h3></div><div id="monthlyChart" class="bar-chart"></div></div>
+          <div class="panel"><div class="panel-head"><h3>Expense by Category</h3></div><div id="categoryChart" class="category-chart"></div></div>
+        </div>
+        <div class="panel"><div class="panel-head"><h3>Recent Expenses</h3><button class="text-btn" data-go="expenses">View All →</button></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Company</th><th>Category</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead><tbody id="recentBody"></tbody></table></div></div>
+      </section>
+
+      <section id="expenses" class="view">
+        <div class="section-toolbar"><div class="search"><span>⌕</span><input id="searchExpenses" placeholder="Search description, category, vendor..."></div><select id="statusFilter"><option value="All">All Status</option><option>Pending</option><option>Approved</option><option>Rejected</option></select><select id="categoryFilter"><option value="All">All Categories</option></select><button id="clearFilters" class="secondary">Clear</button></div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th>Date</th><th>Company</th><th>Category</th><th>Description</th><th>Vendor / Recipient</th><th>Paid By</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead><tbody id="expensesBody"></tbody></table></div><div id="emptyState" class="empty">No expenses found. Click <b>+ Add Expense</b> to add your first expense.</div></div>
+      </section>
+
+      <section id="reports" class="view">
+        <div class="report-controls"><select id="reportCompany"><option value="All">Combined Report</option><option>Urban Fruit Bowl</option><option>Western Mylands</option></select><input type="month" id="reportMonth"><button id="printReport" class="secondary">🖨 Print / Save PDF</button></div>
+        <div id="reportContent">
+          <div class="cards report-cards"><div class="card"><span>Total</span><strong id="reportTotal">₹0</strong></div><div class="card"><span>Transactions</span><strong id="reportTransactions">0</strong></div><div class="card"><span>Average Expense</span><strong id="reportAverage">₹0</strong></div></div>
+          <div class="dashboard-grid"><div class="panel"><h3>Category Summary</h3><div id="reportCategories" class="summary-list"></div></div><div class="panel"><h3>Payment Mode</h3><div id="reportPayments" class="summary-list"></div></div></div>
+          <div class="panel"><h3>Company Comparison</h3><div id="companyComparison" class="summary-list"></div></div>
+        </div>
+      </section>
+
+      <section id="settings" class="view">
+        <div class="settings-grid">
+          <div class="panel"><h3>Categories</h3><p class="muted">Add categories used while entering expenses.</p><div class="inline-add"><input id="newCategory" placeholder="New category"><button id="addCategory" class="primary">Add</button></div><div id="categoryList" class="tag-list"></div></div>
+          <div class="panel"><h3>System Information</h3><p class="muted">This website stores your data locally in the browser. Use Export Backup regularly. If you publish on GitHub Pages, each browser/device keeps its own local data unless you later connect a shared backend.</p><div class="info-box"><b>Companies</b><br>Urban Fruit Bowl<br>Western Mylands</div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden"><div class="modal-card">
+    <div class="modal-head"><div><h2 id="modalTitle">Add Expense</h2><p>Enter complete expense details.</p></div><button id="closeModal" class="close">×</button></div>
+    <form id="expenseForm">
+      <input type="hidden" id="editId">
+      <div class="form-grid">
+        <label>Date<input type="date" id="date" required></label>
+        <label>Company<select id="company" required><option value="">Select Company</option><option>Urban Fruit Bowl</option><option>Western Mylands</option></select></label>
+        <label>Category<select id="category" required></select></label>
+        <label>Amount<input type="number" id="amount" min="0" step="0.01" placeholder="0.00" required></label>
+        <label class="full">Description<input id="description" placeholder="What was this expense for?" required></label>
+        <label>Vendor / Recipient<input id="vendor" placeholder="Optional"></label>
+        <label>Payment Mode<select id="paymentMode"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Debit Card</option><option>Credit Card</option><option>Cheque</option></select></label>
+        <label>Paid By<input id="paidBy" placeholder="e.g. Balu Sir, Narender"></label>
+        <label>Money Source<select id="moneySource"><option>Company Account</option><option>Company Cash</option><option>Personal Account</option><option>Credit Card</option></select></label>
+        <label>Status<select id="status"><option>Pending</option><option>Approved</option><option>Rejected</option></select></label>
+        <label>Bill Available<select id="bill"><option>No</option><option>Yes</option></select></label>
+        <label class="full">Remarks<textarea id="remarks" placeholder="Optional notes"></textarea></label>
+      </div>
+      <div class="modal-actions"><button type="button" id="cancelModal" class="secondary">Cancel</button><button class="primary" type="submit">Save Expense</button></div>
+    </form>
+  </div></div>
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
