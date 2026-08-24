@@ -1,7 +1,0 @@
-1. Create Supabase project.
-2. Run supabase/schema.sql.
-3. Create first Auth user and make it admin using the SQL in README.md.
-4. Put Supabase URL + anon/publishable key in config.js.
-5. Upload this entire folder to GitHub.
-6. Import GitHub repo into Vercel.
-7. Deploy and connect your existing domain.
